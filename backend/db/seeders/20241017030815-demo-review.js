@@ -16,7 +16,7 @@ module.exports = {
                 {
                     spotId: 1,
                     userId: 1,
-                    review: "This is my review",
+                    review: "This is my review for spot 1",
                     stars: 4,
                 },
                 {
@@ -31,6 +31,43 @@ module.exports = {
                     review: "This is my review for spot 3",
                     stars: 3,
                 },
+                {
+                    spotId: 4,
+                    userId: 3,
+                    review: "This is my review for spot 4",
+                    stars: 4,
+                },
+                {
+                    spotId: 5,
+                    userId: 4,
+                    review: "This is my review for spot 5",
+                    stars: 5,
+                },
+                {
+                    spotId: 6,
+                    userId: 5,
+                    review: "This is my review for spot 6",
+                    stars: 3,
+                },
+                {
+                    spotId: 7,
+                    userId: 6,
+                    review: "This is my review for spot 7",
+                    stars: 4,
+                },
+                {
+                    spotId: 8,
+                    userId: 7,
+                    review: "This is my review for spot 8",
+                    stars: 5,
+                },
+                {
+                    spotId: 9,
+                    userId: 8,
+                    review: "This is my review for spot 9",
+                    stars: 3,
+                },
+
             ],
             { validate: true } // Enable validation
         );

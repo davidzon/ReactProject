@@ -118,6 +118,11 @@ router.get("/", async (req, res) => {
                 [Sequelize.Op.lte]: parseFloat(maxPrice),
             };
 
+        let schema = '';
+        if (process.env.NODE_ENV === "production") {
+            schema += `"${process.env.SCHEMA}".`;
+        }
+
         const spots = await Spot.findAll({
             where: whereConditions,
             limit: sizeInt,
@@ -127,7 +132,7 @@ router.get("/", async (req, res) => {
                     [
                         Sequelize.literal(`(
                             SELECT AVG(stars)
-                            FROM "Reviews"
+                            FROM ${schema}"Reviews"
                             WHERE "Reviews"."spotId" = "Spot"."id"
                         )`),
                         "avgRating",
@@ -135,7 +140,7 @@ router.get("/", async (req, res) => {
                     [
                         Sequelize.literal(`(
                             SELECT "url"
-                            FROM "SpotImages" AS "Image"
+                            FROM ${schema}"SpotImages" AS "Image"
                             WHERE "Image"."spotId" = "Spot"."id" AND "Image"."preview" = true
                             LIMIT 1
                         )`),
@@ -197,6 +202,11 @@ router.get("/", async (req, res) => {
 router.get("/current", restoreUser, requireAuth, async (req, res) => {
     const userId = req.user.id;
 
+    let schema = '';
+    if (process.env.NODE_ENV === "production") {
+        schema += `"${process.env.SCHEMA}".`;
+    }
+
     try {
         const spots = await Spot.findAll({
             where: { ownerId: userId },
@@ -211,7 +221,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
                     [
                         Sequelize.literal(`(
                             SELECT "url"
-                            FROM "SpotImages" AS "Image"
+                            FROM ${schema}"SpotImages" AS "Image"
                             WHERE "Image"."spotId" = "Spot"."id" AND "Image"."preview" = true
                             LIMIT 1
                         )`),
@@ -363,6 +373,8 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
         name,
         description,
         price,
+        previewImageUrl,
+        imageUrls = []
     } = req.body;
 
     try {
@@ -379,8 +391,23 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
             price,
         });
 
+        for (let url of imageUrls) {
+            if (url) {
+                try {
+                    const spotImage = await SpotImage.create({
+                        spotId: newSpot.id,
+                        url,
+                        preview: url === previewImageUrl,
+                    });
+                } catch (imageError) {
+                    console.error('Error creating additional image:', imageError);
+                }
+            }
+        }
+
         res.status(201).json(newSpot);
     } catch (err) {
+        console.error(err);
         res.status(400).json({ message: "Validation error", errors: err });
     }
 });
