@@ -21,6 +21,7 @@ module.exports = {
                     type: Sequelize.INTEGER,
                     references: { model: "Users", key: "id" }, // Ensures ownerId links to Users table
                     allowNull: false,
+                    onDelete: "CASCADE",
                 },
                 address: {
                     type: Sequelize.STRING,

@@ -1,8 +1,9 @@
 'use strict';
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -14,7 +15,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       spotId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false, // ✅ Ensured spotId is required
+        references: { model: "Spots", key: "id" }, // ✅ Added FK constraint
+        onDelete: "CASCADE",
       },
       url: {
         type: Sequelize.STRING(2048),

@@ -1,8 +1,9 @@
 'use strict';
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -15,11 +16,15 @@ module.exports = {
       },
       spotId: {
         type: Sequelize.INTEGER,
-
+        allowNull: false, // ✅ Ensured foreign key constraint
+        references: { model: "Spots", key: "id" },
+        onDelete: "CASCADE",
       },
       userId: {
         type: Sequelize.INTEGER,
-
+        allowNull: false, // ✅ Ensured foreign key constraint
+        references: { model: "Users", key: "id" },
+        onDelete: "CASCADE",
       },
       startDate: {
         type: Sequelize.DATE,
@@ -28,7 +33,6 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE,
         allowNull: false,
-
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +46,7 @@ module.exports = {
       }
     }, options);
   },
+
   async down(queryInterface, Sequelize) {
     options.tableName = "Bookings";
     await queryInterface.dropTable(options);

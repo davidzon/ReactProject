@@ -2,38 +2,45 @@
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
-    options.schema = process.env.SCHEMA; // Define schema in options object if in production
+    options.schema = process.env.SCHEMA;
 }
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-    up: async (queryInterface, Sequelize) => {
+    async up(queryInterface, Sequelize) {
         options.tableName = "SpotImages";
-        return queryInterface.bulkInsert(
+
+        await queryInterface.bulkInsert(
             options,
             [
                 {
-                    spotId: 1,
+                    spotId: 1, // ✅ Matches valid spot
                     url: "https://randompicture.com/image1.jpg",
                     preview: true,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
                 },
                 {
                     spotId: 2,
                     url: "https://randompicture.com/image2.jpg",
                     preview: false,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
                 },
                 {
                     spotId: 3,
                     url: "https://randompicture.com/image3.jpg",
                     preview: true,
-                },
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                }
             ],
-            { validate: true } // Enable validation for data integrity
+            { validate: true }
         );
     },
 
-    down: async (queryInterface, Sequelize) => {
+    async down(queryInterface, Sequelize) {
         options.tableName = "SpotImages";
-        return queryInterface.bulkDelete(options, null, {}); // Use options to support schema if in production
+        return queryInterface.bulkDelete(options, null, {});
     },
 };

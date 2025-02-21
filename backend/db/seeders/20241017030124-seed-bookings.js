@@ -35,7 +35,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      
+
     ], options); // Passing options here to support schema if in production
   },
 
