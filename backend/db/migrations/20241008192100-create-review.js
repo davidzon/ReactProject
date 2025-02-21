@@ -1,8 +1,9 @@
 'use strict';
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;  // Define schema in production
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -13,15 +14,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      spotId: {
-        type: Sequelize.INTEGER
+      spotId: { // ✅ Added foreign key constraint
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "Spots", key: "id" },
+        onDelete: "CASCADE",
       },
-      userId: {
-        type: Sequelize.INTEGER
+      userId: { // ✅ Added foreign key constraint
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "Users", key: "id" },
+        onDelete: "CASCADE",
       },
       review: {
         type: Sequelize.STRING,
-
+        allowNull: false,  // ✅ Ensure review is required
       },
       stars: {
         type: Sequelize.INTEGER,
@@ -37,8 +44,9 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    },options);
+    }, options);
   },
+
   async down(queryInterface, Sequelize) {
     options.tableName = "Reviews";
     await queryInterface.dropTable(options);
