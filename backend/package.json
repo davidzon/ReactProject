@@ -12,6 +12,8 @@
   "start:production": "node ./bin/www",
   "migrate-reset": "npx sequelize-cli db:migrate:undo:all --env production && npx sequelize-cli db:migrate --env production",
   "migrate": "npx sequelize-cli db:migrate --env production",
+  "seed-users": "npx sequelize-cli db:seed --seed 20241017025500-demo-users.js --env production",
+  "seed-spots": "npx sequelize-cli db:seed --seed 20241017025532-demo-spots.js --env production",
   "seed": "npx sequelize-cli db:seed:all --env production",
   "build": "node psql-setup-script.js"
 }
