@@ -10,6 +10,7 @@
   "start": "npm run migrate && npm run seed && node ./bin/www",
   "start:development": "nodemon ./bin/www",
   "start:production": "node ./bin/www",
+  "migrate-reset": "npx sequelize-cli db:migrate:undo:all --env production && npx sequelize-cli db:migrate --env production",
   "migrate": "npx sequelize-cli db:migrate --env production",
   "seed": "npx sequelize-cli db:seed:all --env production",
   "build": "node psql-setup-script.js"
