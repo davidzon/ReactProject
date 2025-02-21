@@ -18,12 +18,12 @@ module.exports = {
                     preview: true,
                 },
                 {
-                    spotId: 1,
+                    spotId: 2,
                     url: "https://randompicture.com/image2.jpg",
                     preview: false,
                 },
                 {
-                    spotId: 2,
+                    spotId: 3,
                     url: "https://randompicture.com/image3.jpg",
                     preview: true,
                 },
