@@ -38,6 +38,25 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+/**
+ * Function to reset the database (drop and recreate tables)
+ */
+async function resetDatabase() {
+  try {
+    console.log("Resetting database...");
+    await sequelize.sync({ force: true }); // WARNING: This deletes all data!
+    console.log("Database has been reset successfully.");
+    process.exit(0);
+  } catch (error) {
+    console.error("Error resetting database:", error);
+    process.exit(1);
+  }
+}
+
+// Run the reset function if executed directly
+if (require.main === module) {
+  resetDatabase();
+}
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
