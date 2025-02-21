@@ -16,6 +16,7 @@ module.exports = {
             options,
             [
                 {
+                    id: 1, // ✅ Explicitly setting the ID to ensure it exists for `ownerId = 1` in `Spots`
                     email: "demo@user.io",
                     username: "Demo-lition",
                     firstName: "Davidson",
@@ -25,6 +26,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 2, // ✅ Assign IDs explicitly to prevent gaps in sequence
                     email: "user1@user.io",
                     username: "User1",
                     firstName: "Davidson",
@@ -34,6 +36,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 3,
                     email: "user2@user.io",
                     username: "User2",
                     firstName: "Davidson",
@@ -43,6 +46,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 4,
                     email: "doubly@user.io",
                     username: "User3",
                     firstName: "Double",
@@ -52,6 +56,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 5,
                     email: "doink@user.io",
                     username: "Doink",
                     firstName: "Doink",
@@ -61,6 +66,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 6,
                     email: "doinks@user.io",
                     username: "Doinks",
                     firstName: "Doinks",
@@ -70,6 +76,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 7,
                     email: "doinker@user.io",
                     username: "Doinkers1",
                     firstName: "Doubles",
@@ -79,6 +86,7 @@ module.exports = {
                     updatedAt: new Date(),
                 },
                 {
+                    id: 8,
                     email: "doinkers@user.io",
                     username: "Doinkers2",
                     firstName: "Doinker",
