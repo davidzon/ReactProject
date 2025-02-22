@@ -7,8 +7,9 @@
   "test": "echo \"Error: no test specified\" && exit 1",
   "sequelize": "sequelize",
   "sequelize-cli": "sequelize-cli",
-  "start": "npm run reset-db && node ./bin/www",
-  "reset-db": "npm run migrate-reset && npm run seed",
+  "start": "npm run full-reset && node ./bin/www",
+  "full-reset": "npm run drop-db && npm run migrate && npm run seed",
+  "drop-db": "npx sequelize-cli db:migrate:undo:all --env production && npx sequelize-cli db:seed:undo:all --env production",
   "migrate-reset": "npx sequelize-cli db:migrate:undo:all --env production && npx sequelize-cli db:migrate --env production",
   "migrate": "npx sequelize-cli db:migrate --env production",
   "seed-users": "npx sequelize-cli db:seed --seed 20241017025500-demo-users.js --env production",
@@ -16,6 +17,7 @@
   "seed": "npx sequelize-cli db:seed:all --env production",
   "build": "node psql-setup-script.js"
 }
+
 ,
   "keywords": [],
   "author": "",
