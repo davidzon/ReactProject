@@ -1,4 +1,5 @@
 'use strict';
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // Define schema in production
@@ -14,10 +15,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      reviewId: {  //
+      reviewId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "Reviews", key: "id" }, // Links to Reviews table
+        references: {
+          model: { tableName: "Reviews", schema: process.env.SCHEMA }, // ✅ Explicitly define schema
+          key: "id"
+        },
         onDelete: "CASCADE",
       },
       url: {
